@@ -18,7 +18,7 @@ public class AndroidMethods {
     public String generateOnResumeMethod() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("@Override\n");
-        stringBuffer.append("public void onResume(){\n");
+        stringBuffer.append("public void onResume(){\nsuper.onResume();\n");
 
         if (random.nextInt() > random.nextInt()) stringBuffer.append(generateIFStatement());
         if (random.nextInt() > random.nextInt()) stringBuffer.append(generateIfElseStatement());
@@ -118,25 +118,25 @@ public class AndroidMethods {
 
     public String generateWhileLoop() {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("int i=0;");
-        stringBuffer.append("while(i<" + ForLoop.positiveInteger() + "){\n");
+        stringBuffer.append("int i1=0;");
+        stringBuffer.append("while(i1<" + ForLoop.positiveInteger() + "){\n");
         for (int i = 0; i < 2; i++) {
             stringBuffer.append("System.out.println(\"Random integer: " + random.nextInt(100) + "\");\n");
         }
-        stringBuffer.append("i++;");
+        stringBuffer.append("i1++;");
         stringBuffer.append("}");
         return stringBuffer.toString();
     }
 
     public String generateDoWhileLoop() {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("int i1=0;\n");
+        stringBuffer.append("int i2=0;\n");
         stringBuffer.append("do{\n");
         for (int i = 0; i < 2; i++) {
             stringBuffer.append("System.out.println(\"Random integer: " + random.nextInt(100) + "\");\n");
         }
-        stringBuffer.append("i1++;");
-        stringBuffer.append("}while(i1<" + ForLoop.positiveInteger() + ");\n");
+        stringBuffer.append("i2++;");
+        stringBuffer.append("}while(i2<" + ForLoop.positiveInteger() + ");\n");
         return stringBuffer.toString();
     }
 

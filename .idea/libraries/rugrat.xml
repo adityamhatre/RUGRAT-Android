@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="rugrat">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/scripts.zip!/" />
+      <root url="jar://$PROJECT_DIR$/RUGRAT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

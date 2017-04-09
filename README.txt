@@ -42,7 +42,9 @@ Please send your queries to:
 	Ishtiaque Hussain (ishtiaque.hussain@mavs.uta.edu)
 	Christoph Csallner (csallner@uta.edu)
 
-
+Forked and modified to produce Android code by:
+	Aditya Mhatre
+	Shraddha Ghogare
 
  	
 

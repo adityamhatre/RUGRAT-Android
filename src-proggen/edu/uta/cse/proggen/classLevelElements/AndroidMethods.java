@@ -20,12 +20,18 @@ public class AndroidMethods {
         stringBuffer.append("@Override\n");
         stringBuffer.append("public void onResume(){\nsuper.onResume();\n");
 
-        if (random.nextInt() > random.nextInt()) stringBuffer.append(generateIFStatement());
-        if (random.nextInt() > random.nextInt()) stringBuffer.append(generateIfElseStatement());
-        if (random.nextInt() > random.nextInt()) stringBuffer.append(generateForLoop());
-        if (random.nextInt() > random.nextInt()) stringBuffer.append(generateWhileLoop());
-        if (random.nextInt() > random.nextInt()) stringBuffer.append(generateDoWhileLoop());
-        if (random.nextInt() > random.nextInt()) stringBuffer.append(generateSwitchCase());
+        if (random.nextBoolean() ? random.nextInt() > random.nextInt() : random.nextInt() < random.nextInt())
+            stringBuffer.append(generateIFStatement());
+        if (random.nextBoolean() ? random.nextInt() > random.nextInt() : random.nextInt() < random.nextInt())
+            stringBuffer.append(generateIfElseStatement());
+        if (random.nextBoolean() ? random.nextInt() > random.nextInt() : random.nextInt() < random.nextInt())
+            stringBuffer.append(generateForLoop());
+        if (random.nextBoolean() ? random.nextInt() > random.nextInt() : random.nextInt() < random.nextInt())
+            stringBuffer.append(generateWhileLoop());
+        if (random.nextBoolean() ? random.nextInt() > random.nextInt() : random.nextInt() < random.nextInt())
+            stringBuffer.append(generateDoWhileLoop());
+        if (random.nextBoolean() ? random.nextInt() > random.nextInt() : random.nextInt() < random.nextInt())
+            stringBuffer.append(generateSwitchCase());
 
         stringBuffer.append("}\n");
         return stringBuffer.toString();
@@ -38,7 +44,10 @@ public class AndroidMethods {
         int a = random.nextInt();
         int b = random.nextInt();
 
-        int control = (int) (Math.random() * 5);
+        //int control = (int) (Math.random() * 5);
+        int control = random.nextInt(5);
+
+
         switch (control % 4) {
             case 0:
                 stringBuffer.append("if(" + a + ">" + b + "){");
@@ -67,7 +76,7 @@ public class AndroidMethods {
         int a = random.nextInt();
         int b = random.nextInt();
 
-        int control = (int) (Math.random() * 5);
+        int control = random.nextInt(5);
         switch (control % 4) {
             case 0:
                 stringBuffer.append("if(" + a + ">" + b + "){");

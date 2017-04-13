@@ -180,7 +180,7 @@ public class TreeOfSingleEntryGenerator {
 //					output.append("public class FiveMLOCStart {\n");
                     //changedHere
                     output.append("import android.os.Bundle;\n" +
-                            "import android.support.v7.app.AppCompatActivity;\n\n");
+                            "import android.support.v7.app.AppCompatActivity;\nimport java.util.Random;\n\n");
                     output.append("public class " + ConfigurationXMLParser.getProperty("classNamePrefix") + "Start extends AppCompatActivity{\n");
                     for (int k = 0; k < ProgGenUtil.maxNoOfParameters; k++) {
                         output.append("private static int f" + k + ";\n");

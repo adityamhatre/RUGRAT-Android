@@ -2,6 +2,7 @@ package com.advancedse.project;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import java.util.Random;
 
 public class RUGRATStart extends AppCompatActivity{
 private static int f0;
@@ -46,11 +47,26 @@ super.onCreate(savedInstance);
   entryMethod(Integer.parseInt(""+f0),Integer.parseInt(""+f1),Integer.parseInt(""+f2),Integer.parseInt(""+f3),Integer.parseInt(""+f4),Integer.parseInt(""+f5),Integer.parseInt(""+f6),Integer.parseInt(""+f7),Integer.parseInt(""+f8),Integer.parseInt(""+f9),Integer.parseInt(""+f10),Integer.parseInt(""+f11),Integer.parseInt(""+f12),Integer.parseInt(""+f13),Integer.parseInt(""+f14));
 }@Override
 public void onResume(){
-if(-1725850576>1301639570){System.out.println("In if statement");}int i1=0;
-do{
-System.out.println("Random integer: 7");
-System.out.println("Random integer: 56");
-i1++;}while(i1<3);
-}
+super.onResume();
+Random random = new Random();
+if(random.nextInt()==random.nextInt()){System.out.println("In if statement");}else{System.out.println("In else statement");}for(int i=0;i<1;i++){
+System.out.println("Random integer in for: 75");
+System.out.println("Random integer in for: 91");
+}int i1=0;while(i1<0){
+System.out.println("Random integer in while: 72");
+System.out.println("Random integer in while: 76");
+i1++;}int s = random.nextInt(5);switch(s){case 0:System.out.println("In switch statement, case 0: "+(15+42));
+break;
+ case 1:System.out.println("In switch statement, case 1: "+(6-63));
+break;
+ case 2:System.out.println("In switch statement, case 2: "+(82*8));
+break;
+ case 3:System.out.println("In switch statement, case 3: "+(98/48));
+break;
+ case 4:System.out.println("In switch statement, case 4: "+(37%25));
+break;
+ default:System.out.println("In default case: "+(65+98));
+break;
+ }}
 
 }

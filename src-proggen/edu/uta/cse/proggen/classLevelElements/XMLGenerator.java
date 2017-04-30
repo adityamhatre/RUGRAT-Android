@@ -1,6 +1,19 @@
 package edu.uta.cse.proggen.classLevelElements;
 
+import com.sun.org.apache.xpath.internal.operations.And;
+import org.jcp.xml.dsig.internal.dom.DOMXMLObject;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import javax.xml.crypto.dsig.XMLObject;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -12,6 +25,8 @@ public class XMLGenerator {
     private String[] dimensions = {"match_parent", "wrap_content"};
     private ArrayList<String> buttonIDTracker, textViewIDTracker, editTextIDTracker;
 
+    private ArrayList<String> xmlElements;
+
     private ArrayList<Mapper> elements;
 
     private String xml;
@@ -19,25 +34,51 @@ public class XMLGenerator {
 
     private Random random;
 
-    XMLGenerator(ArrayList<Mapper> elements) {
-        this.elements = elements;
 
+    public XMLGenerator(String path, int numberOfFiles) {
+        File file;
+        BufferedWriter bufferedWriter;
+        elements = new ArrayList<>();
+        Random random = new Random(System.currentTimeMillis());
+
+        try {
+            for (int i = 0; i < numberOfFiles; i++) {
+                elements.clear();
+                elements.add(new Mapper("Button", random.nextInt(5)));
+                elements.add(new Mapper("EditText", random.nextInt(5)));
+                elements.add(new Mapper("TextView", random.nextInt(5)));
+                new AndroidMethods(path, elements.get(0).getNumberOfElements(), elements.get(2).getNumberOfElements(), elements.get(1).getNumberOfElements(), i);
+
+                file = new File(path + ("layout_activity" + (i + 1) + ".xml"));
+                FileWriter fileWriter = new FileWriter(file);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                bufferedWriter.write(generateXML());
+                if (bufferedWriter != null) {
+                    bufferedWriter.close();
+                    fileWriter.close();
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //generateXML();
+    }
+
+    private String generateXML() {
         stringBuffer = new StringBuffer();
 
         random = new Random(System.currentTimeMillis());
 
+        xmlElements = new ArrayList<>();
         buttonIDTracker = new ArrayList<>();
         textViewIDTracker = new ArrayList<>();
         editTextIDTracker = new ArrayList<>();
 
-        buttonIDTracker.add("button0");
-        textViewIDTracker.add("textView0");
-        editTextIDTracker.add("editText0");
-
-        generateXML();
-    }
-
-    private void generateXML() {
+        buttonIDTracker.add("button1");
+        textViewIDTracker.add("textView1");
+        editTextIDTracker.add("editText1");
         stringBuffer.append("<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
                 "    xmlns:tools=\"http://schemas.android.com/tools\"\n" +
                 "    android:layout_width=\"match_parent\"\n" +
@@ -49,50 +90,58 @@ public class XMLGenerator {
             switch (elements.get(i).getElement().toLowerCase()) {
                 case "button":
                     for (int j = 0; j < elements.get(i).getNumberOfElements(); j++) {
-                        stringBuffer.append("<Button\n" +
+                        xmlElements.add("<Button\n" +
                                 "        android:layout_width=\"" + dimensions[random.nextInt(2)] + "\"\n" +
                                 "        android:layout_height=\"wrap_content\"\n" +
                                 "        android:id=\"@+id/" + buttonIDTracker.get(buttonIDTracker.size() - 1) + "\"\n" +
                                 "        android:text=\"lol\" />");
-                        buttonIDTracker.add("button" + buttonIDTracker.size());
+                        buttonIDTracker.add("button" + (buttonIDTracker.size() + 1));
                     }
                     break;
                 case "textview":
                     for (int j = 0; j < elements.get(i).getNumberOfElements(); j++) {
-                        stringBuffer.append("<TextView\n" +
+                        xmlElements.add("<TextView\n" +
                                 "        android:layout_width=\"" + dimensions[random.nextInt(2)] + "\"\n" +
                                 "        android:layout_height=\"wrap_content\"\n" +
                                 "        android:id=\"@+id/" + textViewIDTracker.get(textViewIDTracker.size() - 1) + "\"\n" +
                                 "        android:text=\"lol\" />");
-                        textViewIDTracker.add("textView" + textViewIDTracker.size());
+                        textViewIDTracker.add("textView" + (textViewIDTracker.size() + 1));
                     }
                     break;
                 case "edittext":
                     for (int j = 0; j < elements.get(i).getNumberOfElements(); j++) {
-                        stringBuffer.append("<EditText\n" +
+                        xmlElements.add("<EditText\n" +
                                 "        android:layout_width=\"" + dimensions[random.nextInt(2)] + "\"\n" +
                                 "        android:layout_height=\"wrap_content\"\n" +
                                 "        android:id=\"@+id/" + editTextIDTracker.get(editTextIDTracker.size() - 1) + "\"\n" +
                                 "        android:hint=\"lol\" />");
-                        editTextIDTracker.add("editText" + editTextIDTracker.size());
+                        editTextIDTracker.add("editText" + (editTextIDTracker.size() + 1));
                     }
                     break;
             }
 
         }
+
+        Collections.shuffle(xmlElements);
+        for (String xmlElement : xmlElements) {
+            stringBuffer.append(xmlElement);
+        }
         stringBuffer.append("</LinearLayout>");
         stringBuffer.append("</ScrollView>");
 
         xml = stringBuffer.toString();
-
+       /* File file = new File(DirPath +
+                "TestPrograms" + File.separator +
+                "com" + File.separator +
+                "advancedse" + File.separator + "project"
+                + File.separator + "layout_main.xml");*/
         System.out.println(xml);
+        return xml;
     }
 
     public static void main(String[] args) {
-        ArrayList<Mapper> mapper = new ArrayList<>();
-        mapper.add(new Mapper("Button", 5));
-        mapper.add(new Mapper("EditText", 12));
-        mapper.add(new Mapper("TextView", 3));
-        new XMLGenerator(mapper);
+        int numberOfActivities = 3;
+        new XMLGenerator("C://Users//Aditya//Desktop//ADVSE//", numberOfActivities);
+        new ManifestGenerator("C://Users//Aditya//Desktop//ADVSE//", numberOfActivities);
     }
 }

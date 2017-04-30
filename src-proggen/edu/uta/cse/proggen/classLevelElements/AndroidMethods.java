@@ -3,6 +3,10 @@ package edu.uta.cse.proggen.classLevelElements;
 import edu.uta.cse.proggen.statements.ForLoop;
 import edu.uta.cse.proggen.statements.IfElse;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -14,6 +18,102 @@ public class AndroidMethods {
 
     public AndroidMethods(Random random) {
         this.random = random;
+    }
+
+    File file;
+    BufferedWriter bufferedWriter;
+
+    int numberOfButtons, numberOfTextViews, numberOfEditTexts;
+
+    public AndroidMethods(String path, int numberOfFiles) {
+        random = new Random(System.currentTimeMillis());
+        try {
+
+            for (int i = 0; i < numberOfFiles; i++) {
+                file = new File(path + ("activity" + (i + 1) + ".java"));
+                FileWriter fileWriter = new FileWriter(file);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                bufferedWriter.write(generateImportStatements());
+                bufferedWriter.write(generateClassName(i + 1));
+                bufferedWriter.write(generateOnCreateMethod(i + 1));
+                bufferedWriter.write(generateOnResumeMethod());
+                bufferedWriter.write(generateEndOfClass());
+                if (bufferedWriter != null) {
+                    bufferedWriter.close();
+                    fileWriter.close();
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public AndroidMethods(String path, int numberOfButtons, int numberOfTextViews, int numberOfEditTexts, int currentFileIndex) {
+        this.numberOfButtons = numberOfButtons;
+        this.numberOfTextViews = numberOfTextViews;
+        this.numberOfEditTexts = numberOfEditTexts;
+
+
+        random = new Random(System.currentTimeMillis());
+        try {
+
+            file = new File(path + ("MainActivity" + (currentFileIndex + 1) + ".java"));
+            FileWriter fileWriter = new FileWriter(file);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write("package com.thelegacycoder.advsetest;\n");
+            bufferedWriter.write(generateImportStatements());
+            bufferedWriter.write(generateClassName(currentFileIndex + 1));
+            bufferedWriter.write(generateUIElements());
+            bufferedWriter.write(generateOnCreateMethod(currentFileIndex + 1));
+            bufferedWriter.write(generateOnResumeMethod());
+            bufferedWriter.write(generateEndOfClass());
+            if (bufferedWriter != null) {
+                bufferedWriter.close();
+                fileWriter.close();
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private String generateUIElements() {
+        StringBuffer out = new StringBuffer();
+        for (int i = 0; i < numberOfButtons; i++) {
+            out.append("private Button button").append(i + 1).append(";\n");
+        }
+        for (int i = 0; i < numberOfTextViews; i++) {
+            out.append("private TextView textView").append(i + 1).append(";\n");
+        }
+        for (int i = 0; i < numberOfEditTexts; i++) {
+            out.append("private EditText editText").append(i + 1).append(";\n");
+        }
+        return out.toString();
+    }
+
+    private String generateEndOfClass() {
+        return "}";
+    }
+
+    private String generateClassName(int i) {
+        return "public class MainActivity" + i + " extends AppCompatActivity {\n";
+    }
+
+    private String generateImportStatements() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("import android.os.Bundle;\n");
+        stringBuffer.append("import android.support.v7.app.AppCompatActivity;\n");
+        stringBuffer.append("import java.util.Random;\n");
+        stringBuffer.append("import android.widget.Button;\n");
+        stringBuffer.append("import android.widget.TextView;\n");
+        stringBuffer.append("import android.widget.EditText;\n");
+        stringBuffer.append("import android.view.View;\n");
+        stringBuffer.append("import android.widget.Toast;\n");
+        return stringBuffer.toString();
     }
 
     public String generateOnResumeMethod() {
@@ -35,6 +135,32 @@ public class AndroidMethods {
         return stringBuffer.toString();
     }
 
+    public String generateOnCreateMethod(int i) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("@Override\n");
+        stringBuffer.append("public void onCreate(Bundle savedInstance){\nsuper.onCreate(savedInstance);\n");
+        stringBuffer.append("setContentView(R.layout.layout_activity").append(i).append(");");
+        for (int j = 0; j < numberOfButtons; j++) {
+            stringBuffer.append("button").append(j + 1).append(" = (Button) findViewById(R.id.button").append(j + 1).append(");");
+        }
+        for (int j = 0; j < numberOfTextViews; j++) {
+            stringBuffer.append("textView").append(j + 1).append(" = (TextView) findViewById(R.id.textView").append(j + 1).append(");");
+        }
+        for (int j = 0; j < numberOfEditTexts; j++) {
+            stringBuffer.append("editText").append(j + 1).append(" = (EditText) findViewById(R.id.editText").append(j + 1).append(");");
+        }
+        for (int j = 0; j < numberOfButtons; j++) {
+            stringBuffer.append("button" + (j + 1) + ".setOnClickListener(new View.OnClickListener() {\n" +
+                    "            public void onClick(View v) {\n" +
+                    "                Toast.makeText(MainActivity" + i + ".this, \"Button " + (j + 1) + " clicked\",Toast.LENGTH_SHORT).show();\n" +
+                    "            }\n" +
+                    "        });");
+        }
+
+        stringBuffer.append("}");
+        return stringBuffer.toString();
+    }
+
 
     public String generateIFStatement() {
         StringBuffer stringBuffer = new StringBuffer();
@@ -44,8 +170,6 @@ public class AndroidMethods {
 
         //int control = (int) (Math.random() * 5);
         int control = random.nextInt(5);
-
-
 
 
         switch (control % 4) {
@@ -155,5 +279,8 @@ public class AndroidMethods {
         return stringBuffer.toString();
     }
 
-
+    public static void main(String[] args) {
+        //new AndroidMethods("C://Users//Aditya//Desktop//ADVSE//", 3);
+        //new XMLGenerator("C://Users//Aditya//Desktop//ADVSE//", 3);
+    }
 }

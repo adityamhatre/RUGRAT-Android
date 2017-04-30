@@ -132,11 +132,6 @@ public class TreeOfSingleEntryGenerator {
                     }
 
 
-                    /*------------------------------------------------------------------
-                    *                                                                  |
-                    * NOT WORKING AS OF NOW.... NEEDS TO BE FIXED ===> ITERATION 3     |
-                    *                                                                  |
-                    * ----------------------------------------------------------------*/
                     for (int j = 0; j < methCallLimit && count < target; j++, count++) {
                         // call Tj.SingleEntry();
 //						output.append("FiveMLOC"+count+".singleEntry(f0,f1,f2,f3,f4,f5,f6);\n");
@@ -169,6 +164,12 @@ public class TreeOfSingleEntryGenerator {
                             "com" + File.separator +
                             "advancedse" + File.separator + "project"
                             + File.separator + ConfigurationXMLParser.getProperty("classNamePrefix") + "Start" + ".java");
+
+                    new AndroidMethods(DirPath +
+                            "TestPrograms" + File.separator +
+                            "com" + File.separator +
+                            "advancedse" + File.separator + "project"
+                            + File.separator,2);
 
 //					File file = new File("./FiveMLOCStart.java");
                     FileWriter fileWriter = new FileWriter(file);

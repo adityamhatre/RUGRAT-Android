@@ -84,7 +84,7 @@ public class XMLGenerator {
                                 "        android:layout_width=\"" + dimensions[random.nextInt(2)] + "\"\n" +
                                 "        android:layout_height=\"wrap_content\"\n" +
                                 "        android:id=\"@+id/" + buttonIDTracker.get(buttonIDTracker.size() - 1) + "\"\n" +
-                                "        android:text=\"lol\" />");
+                                "        android:text=\"Button\" />");
                         buttonIDTracker.add("button" + (buttonIDTracker.size() + 1));
                     }
                     break;
@@ -94,7 +94,7 @@ public class XMLGenerator {
                                 "        android:layout_width=\"" + dimensions[random.nextInt(2)] + "\"\n" +
                                 "        android:layout_height=\"wrap_content\"\n" +
                                 "        android:id=\"@+id/" + textViewIDTracker.get(textViewIDTracker.size() - 1) + "\"\n" +
-                                "        android:text=\"lol\" />");
+                                "        android:text=\"TextView\" />");
                         textViewIDTracker.add("textView" + (textViewIDTracker.size() + 1));
                     }
                     break;
@@ -104,7 +104,7 @@ public class XMLGenerator {
                                 "        android:layout_width=\"" + dimensions[random.nextInt(2)] + "\"\n" +
                                 "        android:layout_height=\"wrap_content\"\n" +
                                 "        android:id=\"@+id/" + editTextIDTracker.get(editTextIDTracker.size() - 1) + "\"\n" +
-                                "        android:hint=\"lol\" />");
+                                "        android:hint=\"EditText\" />");
                         editTextIDTracker.add("editText" + (editTextIDTracker.size() + 1));
                     }
                     break;

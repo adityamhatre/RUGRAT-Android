@@ -40,14 +40,14 @@ public class ManifestGenerator {
 
     private String generateActivityTag(int activityNumber) {
         if (activityNumber - 1 == 0) {
-            return "<activity android:name=\"com.thelegacycoder.advsetest.MainActivity" + activityNumber + "\">\n" +
+            return "<activity android:name=\"com.advancedse.project.MainActivity" + activityNumber + "\">\n" +
                     "            <intent-filter>\n" +
                     "                <action android:name=\"android.intent.action.MAIN\" />\n" +
                     "\n" +
                     "                <category android:name=\"android.intent.category.LAUNCHER\" />\n" +
                     "            </intent-filter>\n" +
                     "        </activity>";
-        } else return "<activity android:name=\"com.thelegacycoder.advsetest.MainActivity" + activityNumber + "\"/>\n";
+        } else return "<activity android:name=\"com.advancedse.project.MainActivity" + activityNumber + "\"/>\n";
     }
 
     private String generateApplicationTag() {
@@ -63,6 +63,6 @@ public class ManifestGenerator {
     private String generateManifestTag() {
         return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                 "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
-                "    package=\"com.thelegacycoder.advsetest\">\n";
+                "    package=\"com.advancedse.project\">\n";
     }
 }

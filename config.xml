@@ -1,7 +1,6 @@
 <RUGRAT>
-<!--changedHere-->
+<numberOfAndroidActivities>5</numberOfAndroidActivities>
 <classNamePrefix>RUGRAT</classNamePrefix>
-<!--changedHere-->
 <noOfClasses>5</noOfClasses>
 <recursionProbability>0</recursionProbability>
 <maxAllowedMethodCalls>3</maxAllowedMethodCalls>
@@ -27,7 +26,6 @@
 <minNoOfClassFields>0</minNoOfClassFields>
 <minInheritanceDepth>3</minInheritanceDepth>
 <queryFilename></queryFilename>
-<!--changedHere-->
 <noOfInheritanceChains>1</noOfInheritanceChains>
 <useQueries>false</useQueries>
 <maxValueForLoop>5</maxValueForLoop>

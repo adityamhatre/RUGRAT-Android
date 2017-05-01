@@ -1,25 +1,25 @@
 package edu.uta.cse.proggen.statements;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import edu.uta.cse.proggen.classLevelElements.Method;
 import edu.uta.cse.proggen.nodes.Operand;
 import edu.uta.cse.proggen.packageLevelElements.ClassGenerator;
 import edu.uta.cse.proggen.util.ProgGenUtil;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This creates: for(int i=0; i<var; i++){ stmt..}
  *
  * @author Ishtiaque_Hussain
  */
-public class ForLoop extends Statement {
+public class WhileLoop extends Statement {
 
     private ArrayList<String> variables;
     Operand var = null;
     Statement stmt = null;
 
-    public ForLoop(ArrayList<String> variables) {
+    public WhileLoop(ArrayList<String> variables) {
         this.variables = variables;
     }
 
@@ -34,8 +34,8 @@ public class ForLoop extends Statement {
         return val + "";
     }
 
-    public ForLoop(Method method,
-                   ArrayList<ClassGenerator> classList) {
+    public WhileLoop(Method method,
+                     ArrayList<ClassGenerator> classList) {
         // adding 2 lines per for loop
         method.setLoc(method.getLoc() + 2);
 
@@ -62,15 +62,16 @@ public class ForLoop extends Statement {
 
     public String generate() {
         Random random = new Random(System.currentTimeMillis());
+
         StringBuffer stringBuffer = new StringBuffer();
         int index = random.nextInt(variables.size());
-        stringBuffer.append("for(" + variables.get(index) + "=0;"+variables.get(index)+"<" + ForLoop.positiveInteger() + ";" + variables.get(index) + "++){\n");
+        stringBuffer.append("while(" + variables.get(index) + "<" + ForLoop.positiveInteger() + "){\n");
         for (int i = 0; i < 2; i++) {
-            stringBuffer.append("System.out.println(\"Random integer in for: " + random.nextInt(100) + "\");\n");
+            stringBuffer.append("System.out.println(\"Random integer in while: " + random.nextInt(100) + "\");\n");
         }
+        stringBuffer.append(variables.get(index)).append("++;");
         stringBuffer.append("}");
-
-
         return stringBuffer.toString();
+
     }
 }

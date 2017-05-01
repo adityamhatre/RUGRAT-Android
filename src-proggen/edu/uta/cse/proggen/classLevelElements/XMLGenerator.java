@@ -1,20 +1,10 @@
 package edu.uta.cse.proggen.classLevelElements;
 
-import com.sun.org.apache.xpath.internal.operations.And;
-import org.jcp.xml.dsig.internal.dom.DOMXMLObject;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-
-import javax.xml.crypto.dsig.XMLObject;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -27,7 +17,7 @@ public class XMLGenerator {
 
     private ArrayList<String> xmlElements;
 
-    private ArrayList<Mapper> elements;
+    private ArrayList<UIElement> elements;
 
     private String xml;
     private StringBuffer stringBuffer;
@@ -40,13 +30,13 @@ public class XMLGenerator {
         BufferedWriter bufferedWriter;
         elements = new ArrayList<>();
         Random random = new Random(System.currentTimeMillis());
-
+        new ManifestGenerator(path, numberOfFiles);
         try {
             for (int i = 0; i < numberOfFiles; i++) {
                 elements.clear();
-                elements.add(new Mapper("Button", random.nextInt(5)));
-                elements.add(new Mapper("EditText", random.nextInt(5)));
-                elements.add(new Mapper("TextView", random.nextInt(5)));
+                elements.add(new UIElement("Button", random.nextInt(5)));
+                elements.add(new UIElement("EditText", random.nextInt(5)));
+                elements.add(new UIElement("TextView", random.nextInt(5)));
                 new AndroidMethods(path, elements.get(0).getNumberOfElements(), elements.get(2).getNumberOfElements(), elements.get(1).getNumberOfElements(), i);
 
                 file = new File(path + ("layout_activity" + (i + 1) + ".xml"));

@@ -9,6 +9,7 @@ import java.util.Random;
 
 import edu.uta.cse.proggen.classLevelElements.AndroidMethods;
 import edu.uta.cse.proggen.classLevelElements.Method;
+import edu.uta.cse.proggen.classLevelElements.XMLGenerator;
 import edu.uta.cse.proggen.configurationParser.ConfigurationXMLParser;
 import edu.uta.cse.proggen.statements.IfStmtIfStmt;
 import edu.uta.cse.proggen.statements.PrintStatement;
@@ -37,12 +38,23 @@ public class TreeOfSingleEntryGenerator {
 
     private int LEVEL;
 
+    private int numberOfAndroidActivities;
+
     public TreeOfSingleEntryGenerator(ArrayList<ClassGenerator> list, String pathToDir) {
         listOfClasses = list;
         DirPath = pathToDir;
         LEVEL = (int) Math.ceil(Math.log10(listOfClasses.size()) / Math.log10(methCallLimit));
         formalParam = formalParamBuilder();
         argument = argBuilder();
+    }
+
+    public TreeOfSingleEntryGenerator(ArrayList<ClassGenerator> list, String pathToDir, int numberOfAndroidActivities) {
+        listOfClasses = list;
+        DirPath = pathToDir;
+        LEVEL = (int) Math.ceil(Math.log10(listOfClasses.size()) / Math.log10(methCallLimit));
+        formalParam = formalParamBuilder();
+        argument = argBuilder();
+        this.numberOfAndroidActivities = numberOfAndroidActivities;
     }
 
 
@@ -165,11 +177,11 @@ public class TreeOfSingleEntryGenerator {
                             "advancedse" + File.separator + "project"
                             + File.separator + ConfigurationXMLParser.getProperty("classNamePrefix") + "Start" + ".java");
 
-                    new AndroidMethods(DirPath +
+                    new XMLGenerator(DirPath +
                             "TestPrograms" + File.separator +
                             "com" + File.separator +
                             "advancedse" + File.separator + "project"
-                            + File.separator,2);
+                            + File.separator, numberOfAndroidActivities);
 
 //					File file = new File("./FiveMLOCStart.java");
                     FileWriter fileWriter = new FileWriter(file);
@@ -180,9 +192,7 @@ public class TreeOfSingleEntryGenerator {
                     output.append("package com.advancedse.project;\n\n");
 //					output.append("public class FiveMLOCStart {\n");
                     //changedHere
-                    output.append("import android.os.Bundle;\n" +
-                            "import android.support.v7.app.AppCompatActivity;\nimport java.util.Random;\n\n");
-                    output.append("public class " + ConfigurationXMLParser.getProperty("classNamePrefix") + "Start extends AppCompatActivity{\n");
+                    output.append("public class " + ConfigurationXMLParser.getProperty("classNamePrefix") + "Start {\n");
                     for (int k = 0; k < ProgGenUtil.maxNoOfParameters; k++) {
                         output.append("private static int f" + k + ";\n");
                     }
@@ -203,24 +213,7 @@ public class TreeOfSingleEntryGenerator {
                     //output.append("TStart_L"+(level-1)+"_0.entryMethod("+ argument +");\n}\n\n");
                     output.append("\n}\n\n");
 
-                    //changedHere
-                    output.append("@Override\nprotected void onCreate(Bundle savedInstance){\nsuper.onCreate(savedInstance);\n  entryMethod(");
 
-
-                    StringBuilder str = new StringBuilder();
-                    for (int i = 0; i < ProgGenUtil.maxNoOfParameters; i++) {
-                        str.append("Integer.parseInt(\"\"+f" + i + "),");
-                    }
-                    String s = str.toString();
-                    s = s.substring(0, str.length() - 1);
-                    s += ");\n}";
-
-                    output.append(s);
-
-
-                    Random random = new Random(System.currentTimeMillis());
-                    AndroidMethods androidMethods = new AndroidMethods(random);
-                    output.append(androidMethods.generateOnResumeMethod());
                     // if (random.nextInt() % 2 == 0) {
 
                     //}
@@ -231,7 +224,6 @@ public class TreeOfSingleEntryGenerator {
 
                     writer.write(out);
                     writer.close();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

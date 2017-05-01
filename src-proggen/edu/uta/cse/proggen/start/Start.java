@@ -47,8 +47,8 @@ public class Start {
         int noOfInheritanceChains = 0;
         int noOfInterfaces = 0;
         int maxInterfacesToImplement = 0;
-
-		/* Set of generated classes, it's updated in ClassGenerator.generate() */
+        int numberOfAndroidActivities = 0;
+        /* Set of generated classes, it's updated in ClassGenerator.generate() */
         HashSet<String> generatedClasses = new HashSet<String>();
         HashSet<String> preGeneratedClasses = new HashSet<String>();
 
@@ -61,7 +61,7 @@ public class Start {
             noOfInheritanceChains = ConfigurationXMLParser.getPropertyAsInt("noOfInheritanceChains"); // 2 => "A-B-C" ; "E-F-G"
             noOfInterfaces = ConfigurationXMLParser.getPropertyAsInt("noOfInterfaces");
             maxInterfacesToImplement = ConfigurationXMLParser.getPropertyAsInt("maxInterfacesToImplement");
-
+            numberOfAndroidActivities = ConfigurationXMLParser.getPropertyAsInt("numberOfAndroidActivities");
             if (numberOfClasses < (maxInheritanceDepth * noOfInheritanceChains)) {
                 System.out.println("Insufficent number of classes. Should be atleast: "
                         + maxInheritanceDepth * noOfInheritanceChains);
@@ -145,14 +145,14 @@ public class Start {
             DBUtilGenerator dbUtilGenerator = new DBUtilGenerator();
             writeToFile(dbUtilGenerator);
         }
-			
+
 			/* writing SingleEntry class */
 
 //			SingleEntryGenerator singleEntryGen = new SingleEntryGenerator(list);
 //			String className = ConfigurationXMLParser.getProperty("classNamePrefix")+"Start";
 //			write(className, singleEntryGen.toString());
 
-        TreeOfSingleEntryGenerator treeSingleEntryGen = new TreeOfSingleEntryGenerator(list, pathToDir);
+        TreeOfSingleEntryGenerator treeSingleEntryGen = new TreeOfSingleEntryGenerator(list, pathToDir, numberOfAndroidActivities);
         treeSingleEntryGen.generateTreeOfSingleEntryClass();
 
         //write the reachability matrix

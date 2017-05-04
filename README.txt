@@ -37,14 +37,8 @@ Generated programs will not match the specified 'Total lines of code' property. 
 
 For further information and bug report:
 ---------------------------------------
-Please send your queries to:
-	Mark Grechanik (mark.grechanik@accenture.com)
-	Ishtiaque Hussain (ishtiaque.hussain@mavs.uta.edu)
-	Christoph Csallner (csallner@uta.edu)
-
-Forked and modified to produce Android code by:
-	Aditya Mhatre
-	Shraddha Ghogare
+	Aditya Mhatre (aditya.mhatre@mavs.uta.edu)
+	Shraddha Ghogare (shraddha.ghogare@mavs.uta.edu)
 
  	
 
